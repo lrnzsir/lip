@@ -1,0 +1,7 @@
+(library
+ (name boolintexprLib))
+
+(menhir
+ (modules parser))
+
+(ocamllex lexer)
