@@ -7,12 +7,13 @@ let rec string_of_boolexpr = function
   | And(e1,e2) -> string_of_boolexpr e1 ^ " and " ^ string_of_boolexpr e2
   | Or(e1,e2) -> string_of_boolexpr e1 ^ " or " ^ string_of_boolexpr e2                    
   | If(e0,e1,e2) -> "If(" ^ (string_of_boolexpr e0) ^ "," ^ (string_of_boolexpr e1) ^ "," ^ (string_of_boolexpr e2) ^ ")"
-;;
+
 
 let parse (s : string) : boolExpr =
   let lexbuf = Lexing.from_string s in
   let ast = Parser.prog Lexer.read lexbuf in
   ast
+
 
 (******************************************************************************)
 (*                            Small-step semantics                            *)
@@ -34,13 +35,28 @@ let rec trace1 = function
   | Or(False,e) -> e
   | Or(e1,e2) -> let e1' = trace1 e1 in Or(e1',e2)    
   | _ -> raise NoRuleApplies
-;;
 
 let rec trace e = try
     let e' = trace1 e
     in e::(trace e')
   with NoRuleApplies -> [e]
-;;
+
+let rec last = function
+    [] -> failwith "last on empty list"
+  | [x] -> x
+  | _::l -> last l
+
+let val_of_expr = function
+    True -> Some true
+  | False -> Some false
+  | _ -> None
+
+let eval_smallstep e = val_of_expr (last (trace e))
+
+let string_of_val = function
+    Some b -> string_of_bool b
+  | None -> "None"
+
 
 (******************************************************************************)
 (*                              Big-step semantics                            *)

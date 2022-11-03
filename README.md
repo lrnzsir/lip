@@ -2,7 +2,7 @@
 
 LiP students are expected to fork the repository and push solutions to the exercises on their fork.
 
-Invitation to the Discord server: **https://discord.gg/sv2bZczN** (expires on October 31st, 2022)
+Invitation to the Discord server: **https://discord.gg/hnzhuVv9** (expires on November 8th, 2022)
 
 ## Ocaml basics #1
 
@@ -48,8 +48,13 @@ Look [here](install-ocaml) for minimal instructions.
 1. [Typed arithmetic expressions with static type checking](expr/sarithexpr)
 1. [Untyped arithmetic expressions](expr/uarithexpr)
 1. [Arithmetic expressions with let bindings and dynamic type checking](expr/letarithexpr)
-1. [Boolean expressions with propositional variables](expr/varboolexpr)
+
+## Lambda-calculus
+
+1. Pure untyped lambda-calculus: [call-by-value semantics with explicit renaming of bound variables](lambda/untyped)
+1. Pure untyped lambda-calculus: [normal order semantics with explicit renaming of bound variables, and Church numerals](lambda/church)
 
 ## References
 
 - [OCaml Programming: Correct + Efficient + Beautiful](https://cs3110.github.io/textbook/cover.html)
+- B. Pierce. Types and Programming Languages. MIT Press, 2002

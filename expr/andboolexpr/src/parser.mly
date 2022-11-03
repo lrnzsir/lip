@@ -14,10 +14,17 @@ open Ast
 %token ELSE
 %token EOF
 
+(* ELSE is not associative *)
 %nonassoc ELSE
+
+(* OR is left associative has the priority over ELSE *)
 %left OR
+
+(* AND is left associative and has the priority over OR *)
 %left AND
-%left NOT
+
+(* NOT is right associative has the highest priority *)
+%right NOT
 
 %start <boolExpr> prog
 
