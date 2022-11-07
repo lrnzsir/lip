@@ -12,9 +12,37 @@ let rec string_of_boolexpr = function
 
 exception Error of string
 
-let rec typecheck p = 
-  
-  match p with (d, e) -> 
+let typecheck p =
+  let rec has_dup = function
+    | x::y::_ when x = y -> true
+    | x::y::l -> (has_dup (x::l)) || (has_dup (y::l))
+    | _::[] -> false
+    | [] -> false in
+  let rec list_of_var_id = function
+    | Var(x) -> [x]
+    | Not(e0) -> list_of_var_id e0
+    | And(e0,e1) -> (list_of_var_id e0) @ (list_of_var_id e1)
+    | Or(e0,e1) -> (list_of_var_id e0) @ (list_of_var_id e1)
+    | If(e0,e1,e2) -> (list_of_var_id e0) @ (list_of_var_id e1) @ (list_of_var_id e2)
+    | _ -> [] in
+  let rec list_of_let_id = function
+    | (x,_)::d -> x::(list_of_let_id d)
+    | [] -> [] in
+  match p with (d,e) -> if has_dup (list_of_let_id )
+  if has_dup (list_of_let_id )
+  let rec contains_var = 
+  let rec is_in_boolDecl x = function
+    | (y,_)::d when x = y -> ()
+    | _::d -> is_in_boolDecl x d
+    | [] -> raise (Error ("the variable " ^ x ^ " is used but not declared"))
+  let rec check_dup_boolDecl = function
+    | (x,_)::(y,_)::d when x = y -> raise (Error ("the variable " ^ x ^ " is declared multiple times"))
+    | d0::d1::d -> check_dup_boolDecl (d0::d) check_dup_boolDecl (d1::d)
+    | d0::[] -> ()
+    | [] -> () in
+  let rec check_var_in_boolExpr =
+    let rec 
+;;
 
 let parse (s : string) : boolProg =
   let lexbuf = Lexing.from_string s in
