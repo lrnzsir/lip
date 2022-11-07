@@ -129,12 +129,15 @@ let is_val = function
 exception NoRuleApplies
 
 (**********************************************************************
- trace1 : int -> term -> term * int
+trace1 : int -> term -> term * int
 
- Usage: trace1 vars t performs a step of the small-step call-by-value semantics
+Usage: trace1 vars t performs 1 step of the small-step call-by-value semantics,
+returning the obtained term and the index of the first fresh variable
 
- Pre:  xk does not occur in t, for all k>=vars
- **********************************************************************)
+Pre:  xk does not occur in t, for all k>=vars
+
+Post: if trace1 i t = (t',i') then xk does not occur in t', for all k>=i'
+**********************************************************************)
 
 let rec trace1 vars = function
   | App(Abs(x, t1), v2) when is_val v2 -> subst x v2 vars t1
@@ -145,11 +148,23 @@ let rec trace1 vars = function
 
 
 (**********************************************************************
- trace_rec : int -> term -> term * int
+trace_rec : int -> int -> term -> term list
 
- Usage: trace_rec n vars t performs n steps of the small-step semantics
+Usage: trace_rec n vars t performs n steps of the small-step semantics
 
- Pre:  xk does not occur in t, for all k>=vars
- **********************************************************************)
+Pre:  xk does not occur in t, for all k>=vars
+**********************************************************************)
 
-let trace _ _ = failwith "TODO"
+let rec trace_rec n vars t = if n <= 0 then [t] else try
+  let (t', vars') = trace1 vars t
+  in t::(trace_rec (n - 1) vars' t')
+with NoRuleApplies -> [t]
+
+
+(**********************************************************************
+trace : int -> term -> term list
+
+Usage: trace n t performs n steps of the small-step semantics
+**********************************************************************)
+
+let trace n t = trace_rec n (max_nat t) t;;
