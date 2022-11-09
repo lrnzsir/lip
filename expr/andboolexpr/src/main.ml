@@ -41,18 +41,6 @@ let rec trace e = try
     in e::(trace e')
   with NoRuleApplies -> [e]
 
-let rec last = function
-    [] -> failwith "last on empty list"
-  | [x] -> x
-  | _::l -> last l
-
-let val_of_expr = function
-    True -> Some true
-  | False -> Some false
-  | _ -> None
-
-let eval_smallstep e = val_of_expr (last (trace e))
-
 let string_of_val = function
     Some b -> string_of_bool b
   | None -> "None"

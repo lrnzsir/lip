@@ -1,3 +1,5 @@
 *~
 _build
 myexpr/_build
+**/_build
+*.opam
