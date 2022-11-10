@@ -23,6 +23,7 @@ let rec t_nat_rec = function
 let t_nat n = Abs("s",Abs("z",t_nat_rec n))
 
 let t_scc = Abs("n",Abs("s",Abs("z",App(Var "s",App(App(Var "n",Var "s"),Var "z")))))
+let t_add = Abs("m",Abs("n",Abs("s",Abs("z",App(App(Var "m",Var "s"),App(App(Var "n",Var "s"),Var "z"))))))
 
 let s_id  = "(fun x . x)"
 let s_omega = "(fun x. x x)"
