@@ -58,7 +58,7 @@ in string_of_int (string_of_nat' t)
  Usage: is_free x t = true iff the variable x occurs free in t
  **********************************************************************)
 
- let rec is_free x = function
+let rec is_free x = function
   | Abs(y, _) when y = x -> false
   | Abs(_, t) -> is_free x t
   | Var(y) -> x = y
@@ -172,8 +172,9 @@ Post: if trace1 i t = (t',i') then xk does not occur in t', for all k>=i'
 let rec trace1 vars = function
   | Abs(x, t) -> let (t', vars') = trace1 vars t in (Abs(x, t'), vars')
   | App(Abs(x, t1), t2) -> subst x t2 vars t1
-  | App(Var(x), t2) -> let (t2', vars') = trace1 vars t2 in (App(Var(x), t2'), vars')
-  | App(t1, t2) -> let (t1', vars') = trace1 vars t1 in (App(t1', t2), vars')
+  | App(t1, t2) -> (try 
+      let (t1', vars') = trace1 vars t1 in (App(t1', t2), vars')
+    with NoRuleApplies -> let (t2', vars') = trace1 vars t2 in (App(t1, t2'), vars'))
   | _ -> raise NoRuleApplies
 ;;
 

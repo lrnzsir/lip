@@ -30,5 +30,5 @@ rule read =
   | "->" { ARR } 
   | "." { DOT }
   | ":" { COLON }
-  | id { VAR (Lexing.lexeme lexbuf) } 
+  | id { VAR (Lexing.lexeme lexbuf) }
   | eof { EOF }
