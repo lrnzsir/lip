@@ -39,6 +39,39 @@ let%test _ =
 
 
 (**********************************************************************
+ typecheck test : (variable, term, expected type)
+ **********************************************************************)
+
+let test_typecheck = [
+  ("fun x:bool. x", Some (TFun(TBool,TBool)));
+  ("(fun x:bool. x) true", Some TBool);
+  ("fun x:bool. y", None);
+  ("fun x:nat. iszero x", Some (TFun(TNat,TBool)));
+  ("fun x:nat. succ iszero x", None);
+  ("fun x:nat. fun y: bool. y and iszero x", Some (TFun(TNat,TFun(TBool,TBool))));  
+]
+
+let string_of_typeoption = function
+    Some t -> string_of_type t
+  | _ -> "TypeError"
+    
+let%test _ =
+  print_newline();
+  print_endline ("*** Testing typecheck...");  
+  List.fold_left
+    (fun b (ts,er) ->
+       let t = parse ts in
+       let ar = (try Some(typecheck bot t) with _ -> None) in (* actual result *)
+       print_string (ts ^ " |- " ^ string_of_typeoption ar);
+       let b' = (ar = er) in
+       print_string (" " ^ (if b' then "[OK]" else "[NO : expected " ^ string_of_typeoption er ^ "]"));
+       print_newline();
+       b && b')
+    true
+    test_typecheck
+
+
+(**********************************************************************
  trace test : (start term, number of steps, expected result up-to alpha-conversion)
  **********************************************************************)
 
