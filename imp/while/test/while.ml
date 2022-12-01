@@ -43,6 +43,10 @@ let test_trace = [
   ("x:=1; y:=2; z:=3; if x<=y and x<=z then min:=x else (if y<=z then min:=y else min:=z)", 10, "min", Nat 1);
   ("x:=2; y:=1; z:=3; if x<=y and x<=z then min:=x else (if y<=z then min:=y else min:=z)", 10, "min", Nat 1);
   ("x:=2; y:=3; z:=1; if x<=y and x<=z then min:=x else (if y<=z then min:=y else min:=z)", 10, "min", Nat 1);          
+  ("x:=5; f:=1; while not (x<=0) do (f:=f*x; x:=x-1)", 20, "f", Nat 120);
+  ("n:=7; a:=0; b:=1; while not (n<=0) do (tmp:=b; b:=a+b; a:=tmp; n:=n-1)", 100, "b", Nat 21);
+  ("a:=24; b:=60; while not a=b do (if not a<=b then a:=a-b else b:=b-a); gcd:=a", 100, "gcd", Nat 12);
+  ("a:=12; b:=600; while not a=b do (if not a<=b then a:=a-b else b:=b-a); gcd:=a", 1000, "gcd", Nat 12);
 ]
               
 let%test _ =

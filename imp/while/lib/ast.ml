@@ -20,4 +20,3 @@ type cmd =
   | Seq of cmd * cmd
   | If of expr * cmd * cmd
   | While of expr * cmd
-
