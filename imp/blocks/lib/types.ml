@@ -12,19 +12,21 @@ type mem = loc -> memval
    We assume that the store is unbounded *)
 type state = env list * mem * loc
 
-let topenv (el,_,_) = match el with
+let topenv ((el,_,_) : state) = match el with
     [] -> failwith "empty environment stack"
   | e::_ -> e
 
-let popenv (el,_,_) = match el with
+let popenv ((el,_,_) : state) = match el with
     [] -> failwith "empty environment stack"
   | _::el' -> el'
 
-let getenv (el,_,_) = el
-let getmem (_,m,_) = m
-let getloc (_,_,l) = l
+let getenv ((el,_,_) : state) = el
+let getmem ((_,m,_) : state) = m
+let getloc ((_,_,l) : state) = l
   
 type conf = St of state | Cmd of cmd * state
 
 exception TypeError of string
 exception UnboundVar of ide
+exception EmptyLoc of loc
+exception NoRuleApplies

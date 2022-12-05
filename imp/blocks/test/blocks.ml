@@ -47,6 +47,8 @@ let test_trace = [
   ("{ int y; int x; x:=10; { int x; x:=20; y:=x }; y:=x }", 10, 0, Int 10);
   ("{ int y; int x; x:=10; { int x; x:=20; y:=x } }", 10, 0, Int 20);
   ("{ int y; { int x; x:=20; y:=x }; { int x; x:=30; y:=x+y+1 } }", 10, 0, Int 51);  
+  ("{ int gcd; int a; int b; a:=24; b:=60; while not a=b do { if not a<=b then a:=a-b else b:=b-a }; gcd:=a }", 50, 0, Int 12);
+  ("{ int x; int y; int z; int min; x:=3; y:=2; z:=1; if x<=y and x<=z then min:=x else { if y<=z then min:=y else min:=z } }", 50, 3, Int 1)
 ]
 
               
