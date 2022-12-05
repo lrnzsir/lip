@@ -55,6 +55,11 @@ Look [here](install-ocaml) for minimal instructions.
 1. Pure untyped lambda calculus: [normal order semantics with explicit renaming of bound variables, and Church numerals](lambda/church)
 1. Simply typed lambda calculus: [call-by-value semantics and static type checking](lambda/simplytyped)
 
+## Imperative languages
+
+1. [A simple imperative language](imp/while)
+1. [Imperative language with blocks](imp/blocks)
+
 ## References
 
 - [OCaml Programming: Correct + Efficient + Beautiful](https://cs3110.github.io/textbook/cover.html)
