@@ -1,2 +1,4 @@
 open FunLib.Ast;;
 open FunLib.Main;;
+open FunLib.Types;;
+open FunLib.Prettyprint;;

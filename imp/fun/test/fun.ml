@@ -1,3 +1,4 @@
+
 open FunLib.Types       
 open FunLib.Prettyprint
 open FunLib.Main
@@ -24,6 +25,10 @@ let test_trace = [
   ("int x; int y; int w; fun f(z) { z:=x; x:=y; y:=z; return 0 }; x := 10; y := 20; w := f(0)", 20, "x", 20);
   ("int x; int y; int w; fun f(z) { z:=x; x:=y; y:=z; return 0 }; x := 10; y := 20; w := f(0)", 20, "y", 10);
   ("int x; int y; fun f(x) { x:=20; return 0 }; x := 10; y := f(0); x := x+1", 20, "x", 11);
+  ("int x; int r; fun f(n) { r:=1; while not (n<=0) do (r:=r*n; n:=n-1); return r }; x := f(5)", 100, "x", 120);
+  ("int x; int r; fun f(n) { if n=0 then r:=1 else r:=n*f(n-1); return r }; x := f(3)", 100, "x", 6);
+  ("int x; int z; fun f(x) { if x=0 then z:=1 else if x=1 then z:=0 else z:= f(x-2); return z }; x := f(8)", 100, "x", 1);
+  ("int x; int z; fun f(x) { if x=0 then z:=1 else if x=1 then z:=0 else z:= f(x-2); return z }; x := f(9)", 100, "x", 0);
 ]
 
               
